@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+<body>
+<canvas id="dispChart"></canvas>
+ 
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+    // parameters
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var sensor_id = urlParams.get('sensor_id');
+    var mode = urlParams.get('mode');
+    console.log("sensor id");
+    console.log(sensor_id);
+
+
+    // setup 
+    const data = {
+      datasets: [{
+        label: 'Data(cm)',
+        backgroundColor: [
+        'rgba(255, 26, 104, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+        'rgba(255, 26, 104, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }],
+
+    };
+
+    // config 
+    const config = {
+      type: 'line',
+      data: data,
+     options: {
+        scales: {
+            x: {
+               ticks: {
+                   display: false
+              }
+           }
+        }
+    }
+    };
+
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('dispChart'),
+      config
+      );
+
+// retain for plotting chart
+function updateChart() {
+     async function fetchData() {
+      const url = 'json_chart_data_flood_level.php?mode=' + mode +'&sensor_id=' + sensor_id;
+      const response = await fetch(url);
+      const datapoints = await response.json();
+      return datapoints;
+    }; 
+    fetchData().then(datapoints => {
+      const sensval = datapoints.map((sensval, index) => {
+        return sensval.sensor_value;
+      });
+
+      const label_timestamps = datapoints.map((label_timestamps, index)=>{
+        return label_timestamps.timestamps;
+      });
+      myChart.config.data.labels = label_timestamps;
+
+      myChart.config.data.datasets[0].data = sensval;
+      myChart.update();
+
+    });
+  };
+  setInterval(updateChart, 1000);
+</script>
+</html>

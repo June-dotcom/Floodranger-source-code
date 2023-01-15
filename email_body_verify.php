@@ -1,0 +1,56 @@
+<?php
+$mail_body = "";
+$mail_body .= '<!DOCTYPE html>';
+$mail_body .= '<html lang="en" dir="ltr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" style="color-scheme:light dark;supported-color-schemes:light dark;">';
+$mail_body .= '<head>';
+$mail_body .= '<meta charset="utf-8">';
+$mail_body .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+$mail_body .= '<meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=yes">';
+$mail_body .= '<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">';
+$mail_body .= '<meta name="x-apple-disable-message-reformatting">';
+$mail_body .= '<meta name="color-scheme" content="light dark">';
+$mail_body .= '<meta name="supported-color-schemes" content="light dark">';
+$mail_body .= '<title></title>';
+$mail_body .= '<!--[if mso]> <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>';
+$mail_body .= '<![endif]-->';
+$mail_body .= '<!--[if mso]>';
+$mail_body .= '<style>table,tr,td,p,span,a{mso-line-height-rule:exactly !important;line-height:120% !important;mso-table-lspace:0 !important;mso-table-rspace:0 !important;}.mso-padding{padding-top:20px !important;padding-bottom:20px !important;}';
+$mail_body .= '</style>';
+$mail_body .= '<![endif]-->';
+$mail_body .= '<style>a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important;}u+#body a{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important;}#MessageViewBody a{color:inherit!important;text-decoration:none!important;font-size:inherit!important;';
+$mail_body .= 'font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important;}:root{color-scheme:light dark;supported-color-schemes:light dark;}tr{vertical-align:middle;}p,a,li{color:#000000;font-size:16px;mso-line-height-rule:exactly;line-height:24px;font-family:Arial,sans-serif;}p:first-child{margin-top:0!important;}p:last-child{margin-bottom:0!important;}a{text-decoration:underline;font-weight:bold;color:#0000ff}.alert p{vertical-align:top;color:#fff;font-weight:500;text-align:';
+$mail_body .= 'center;border-radius:3px 3px 0 0;background-color:#FF9F00;margin:0;padding:20px;}@media only screen and (max-width:599px){.full-width-mobile{width:100%!important;height:auto!important;}.mobile-padding{padding-left:10px!important;padding-right:10px!important;}.mobile-stack{display:block!important;width:100%!important;}}@media (prefers-color-scheme:dark){body,div,table,td{background-color:#000000!important;color:#ffffff!important;}.content{background-color:#222222!important;}p,li,.white-text{color:#B3BDC4!important;}a{color:#84cfe2!important;}a span,.alert-dark p{color:#ffffff!important;}}';
+$mail_body .= '</style>';
+$mail_body .= '</head>';
+$mail_body .= '<body class="body" style="background-color:#f4f4f4;"><div style="display:none;font-size:1px;color:#f4f4f4;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;"></div> <span style="display:none!important;visibility:hidden;mso-hide:all;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;"> &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</span><div role="article" aria-roledescription="email" aria-label="Your Email" lang="en" dir="ltr" style="font-size:16px;font-size:1rem;font-size:max(16px,1rem);background-color:#f4f4f4;">';
+$mail_body .= '<table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;max-width:600px;width:100%;background-color:#f4f4f4;"><tr style="vertical-align:middle;" valign="middle"><td>';
+$mail_body .= '<!--[if mso]>';
+$mail_body .= '<table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse:collapse;"><tr><td align="center">';
+$mail_body .= '<!--<![endif]-->';
+$mail_body .= '</td></tr><tr style="vertical-align:middle;" valign="middle"><td align="center">';
+$mail_body .= '<table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse:collapse;max-width:600px;width:100%;background-color:#fffffe;"><tr style="vertical-align:middle;" valign="middle"><td>';
+$mail_body .= '';
+$mail_body .= '</td></tr><tr style="vertical-align:middle;" valign="middle"><td align="center" style="padding:30px;" class="content">';
+$mail_body .= '<table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse:collapse;max-width:600px;width:100%;background-color:#fffffe;"><tr style="vertical-align:middle;" valign="middle"><td class="content"><p style="color:#000000;font-size:16px;mso-line-height-rule:exactly;line-height:24px;font-family:Arial,sans-serif;margin-top:0!important;">Hi there we\'re confirming that you are registering to floodranger alerts  <p style="color:#000000;font-size:16px;mso-line-height-rule:exactly;line-height:24px;font-family:Arial,sans-serif;margin-bottom:0!important;">You are allowing floodranger to send you email alerts about flood water level in Urdaneta, Pangasinan, Phillippines  by clicking the confirm email you are agreeing to the terms and conditions.</p>';
+$mail_body .= '</td></tr></table>';
+$mail_body .= '</td></tr><tr style="vertical-align:middle;" valign="middle"><td align="center" class="content">';
+$mail_body .= '<table role="presentation" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:100%"><tr style="vertical-align:middle;" valign="middle"><td align="left" style="padding:0 0 0 30px;" class="content"><a href="'.$email_link_to_verify.'" style="font-size:16px;mso-line-height-rule:exactly;line-height:24px;font-family:Arial,sans-serif;font-weight:bold;background:#348eda;text-decoration:none;padding:15px 25px;color:#fff;border-radius:4px;display:inline-block;mso-padding-alt:0;text-underline-color:#348eda;" class="dark-button">';
+$mail_body .= '<!--[if mso]><i style="letter-spacing:25px;mso-font-width:-100%;mso-text-raise:30pt" hidden>&nbsp;</i>';
+$mail_body .= '<![endif]--><span style="mso-text-raise:15pt;">Confirm email</span>';
+$mail_body .= '<!--[if mso]><i style="letter-spacing:25px;mso-font-width:-100%" hidden>&nbsp;</i>';
+$mail_body .= '<![endif]--></a>';
+$mail_body .= '</td></tr></table>';
+$mail_body .= '</td></tr><tr style="vertical-align:middle;" valign="middle"><td align="center" style="padding:30px;" class="content">';
+$mail_body .= '';
+$mail_body .= '</td></tr></table>';
+$mail_body .= '';
+$mail_body .= '</td></tr>';
+$mail_body .= '<!--[if mso]>';
+$mail_body .= '</td></tr></table>';
+$mail_body .= '<!--<![endif]--></table></div>';
+$mail_body .= '</body>';
+$mail_body .= '</html>';
+
+
+echo $mail_body;
+?>
