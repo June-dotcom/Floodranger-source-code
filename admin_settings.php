@@ -67,7 +67,7 @@ Preloader start
             </nav>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-4" hidden>
+            <div class="col-12 col-lg-4">
                 <a href="admin_settings_sms.php">
                     <div class="card">
 
