@@ -31,6 +31,7 @@
                  <?php
              }
              ?>
+             <a href="archived_alerts_pdf.php" target="_blank" class="btn btn-light">Archived view</a>
 
          </div>
      </div>

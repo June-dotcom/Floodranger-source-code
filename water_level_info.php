@@ -40,10 +40,17 @@
     </div>
 
     <div class="row">
+        <?php 
+        include 'all_sensors_cards.php';
+        ?>
+    </div>
+   
+ <div class="row"> 
+    <?php
+     include 'all_sensors_charts.php'; 
+    ?>
+</div>
 
-        <?php include 'all_sensors_cards_alternate.php';?>
-
-    </div> 
 </div>
 
 
@@ -59,6 +66,7 @@
 <script src="js/custom.min.js"></script>
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
+
 
 <!-- for flood monitoring cards !-->
 <script type="text/javascript" src="script_card_fld_lvl_upd.js"></script>

@@ -13,4 +13,4 @@
     $last_alert_remarks = $last_inserted_result->alert_remark_id;
 
     include "alertify_email_instance.php";
-    include "alertify_sms_instance.php";
+    include "alertify_traccar_sms_instance.php";
