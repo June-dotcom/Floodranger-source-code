@@ -11,62 +11,62 @@ if(!(isset($_SESSION['user_id']))){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Floodranger admin dashboard</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Floodranger admin dashboard</title>
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+<link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
+<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
-    <link href="css/style.css" rel="stylesheet">
-    <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap"
-    rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="css/style.css" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap"
+rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 </head>
 
 <body>
 
-    <!--*******************
+<!--*******************
 Preloader start
 ********************-->
 <div id="preloader">
-    <div class="sk-three-bounce">
-        <div class="sk-child sk-bounce1"></div>
-        <div class="sk-child sk-bounce2"></div>
-        <div class="sk-child sk-bounce3"></div>
-    </div>
+<div class="sk-three-bounce">
+<div class="sk-child sk-bounce1"></div>
+<div class="sk-child sk-bounce2"></div>
+<div class="sk-child sk-bounce3"></div>
 </div>
-    <!--*******************
+</div>
+<!--*******************
 Preloader end
 ********************-->
 
-    <!--**********************************
+<!--**********************************
 Main wrapper start
 ***********************************-->
 <div id="main-wrapper">
 
-        <!--**********************************
+<!--**********************************
 Nav header start
 ***********************************-->
 <div class="nav-header">
-    <a href="index.html" class="brand-logo">
-        <img class="logo-abbr" src="images/logo.png" alt="">
-        <img class="logo-compact" src="images/logo-text.png" alt="">
-        <img class="brand-title" src="images/logo-text.png" alt="">
-    </a>
-    <div class="nav-control">
-        <div class="hamburger">
-            <span class="line"></span><span class="line"></span><span class="line"></span>
-        </div>
-    </div>
+<a href="index.html" class="brand-logo">
+<img class="logo-abbr" src="images/logo.png" alt="">
+<img class="logo-compact" src="images/logo-text.png" alt="">
+<img class="brand-title" src="images/logo-text.png" alt="">
+</a>
+<div class="nav-control">
+<div class="hamburger">
+<span class="line"></span><span class="line"></span><span class="line"></span>
+</div>
+</div>
 </div>
 
 <?php 
@@ -77,23 +77,23 @@ include 'deznav_navbar.php';
 
 
 <div class="content-body">
-    <!-- row contains all cards -->
-    <div class="container-fluid">
-        <div class="page-titles">
-          <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="admin_settings.php">Settings</a></li>
-                <li class="breadcrumb-item active" aria-current="page">SMS</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="row">
-        <div class="col-12">
-         <?php include 'admin_sms_text_sub_list.php'; ?>
-         
+<!-- row contains all cards -->
+<div class="container-fluid">
+<div class="page-titles">
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="admin_settings.php">Settings</a></li>
+<li class="breadcrumb-item active" aria-current="page">SMS</li>
+</ol>
+</nav>
+</div>
+<div class="row">
+<div class="col-12">
+<?php include 'admin_sms_text_sub_list.php'; ?>
 
-     </div>
- </div>
+
+</div>
+</div>
 </div>
 
 </div>
@@ -121,15 +121,32 @@ include 'deznav_navbar.php';
 <!-- Dashboard 1 -->
 <script src="js/dashboard/dashboard-1.js"></script>
 <script>
-    $(document).ready( function () {
-        $('#sms_list_tbl').DataTable();
-    } );
-    
-    jQuery(window).on('load', function () {
-        setTimeout(function () {
-            carouselReview();
-        }, 1000);
+$(document).ready( function () {
+    $('#sms_list_tbl').DataTable();
+} );
+
+jQuery(window).on('load', function () {
+    setTimeout(function () {
+        carouselReview();
+    }, 1000);
+});
+for(var i = 1; i <= 3; i++){
+    sms_edit_remaining(i);
+}
+
+
+function sms_edit_remaining(form_id_sms){
+    $('#smseditform' + form_id_sms).keypress(function(){
+        
+        if(this.value.length > 160){
+            return false;
+        }
+        $("#remainingChar" + form_id_sms).html("Remaining characters : " +(160 - this.value.length));
     });
+    
+}
+
+
 </script>
 <!-- Chartist -->
 <script src="vendor/chartist/js/chartist.min.js"></script>

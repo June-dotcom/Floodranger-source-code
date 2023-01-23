@@ -5,12 +5,12 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
-echo $alert_id . "<br>";
+echo "<br>Alert id upon email instance : " . $alert_id_tmp . "<br>";
 $contacts_query = $pdo->query("SELECT * FROM (SELECT contacts.email, address_table.device_covered_by, address_table.evacuation_id, evacuation.evacuation_center_name, evacuation.evacuation_center_location FROM contacts JOIN address_table ON address_table.address_id = contacts.address_id JOIN evacuation ON evacuation.evac_id = address_table.evacuation_id WHERE contacts.is_permitted = 1) as contacts_tmp WHERE contacts_tmp.device_covered_by = '$device_api_key_tmp'");
 
 $contacts_obj = $contacts_query->fetchAll();
 
-$message_query = $pdo->query("SELECT * FROM flood_alert_levels JOIN flood_alert_email ON flood_alert_levels.email_alert_id = flood_alert_email.email_alert_id WHERE flood_alert_levels.alert_remark_id = '$alert_id' LIMIT 1");
+$message_query = $pdo->query("SELECT * FROM flood_alert_levels JOIN flood_alert_email ON flood_alert_levels.email_alert_id = flood_alert_email.email_alert_id WHERE flood_alert_levels.alert_remark_id = '$alert_id_tmp' LIMIT 1");
 
 $message_obj = $message_query->fetch();
 echo $message_obj->email_message;

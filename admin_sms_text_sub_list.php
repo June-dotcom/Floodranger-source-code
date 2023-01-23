@@ -8,9 +8,7 @@
                 <thead>
                     <tr>
                         <th>SMS Alert id</th>
-                        <th>Device api key id</th>
                         <th>SMS messages</th>
-                        <th>Alert remarks</th>
                         <th>Actions</th>
 
                     </tr>
@@ -23,7 +21,6 @@
                   ?>
                   <tr>
                      <td><?php echo $post->sms_alert_id; ?></td>
-                     <td><?php echo $post->device_api_key; ?></td>
 
                      <td><?php echo $post->sms_message; ?> </td>
                      <td><?php echo $post->alert_remark_id; ?> </td>
@@ -47,7 +44,8 @@
                         <input type="hidden" name="sms_message_id" value="<?php echo $post->sms_alert_id; ?>">
                         <div class="form-group">
                             <label>SMS message</label>
-                            <textarea class="form-control" name="sms_message_edit" rows="4" id="comment"><?php echo $post->sms_message; ?></textarea>
+                            <textarea class="form-control" name="sms_message_edit" rows="4" id="smseditform<?php echo $post->id?>"><?php echo $post->sms_message; ?></textarea>
+                            <span id="remainingChar<?php echo $post->id?>"></span>
                         </div>
                     </form>
                 </div>
@@ -70,9 +68,7 @@
 <tfoot>
    <tr>
     <th>SMS Alert id</th>
-    <th>Device api key id</th>
     <th>SMS messages</th>
-    <th>Alert remarks</th>
     <th>Actions</th>
 
 </tr>

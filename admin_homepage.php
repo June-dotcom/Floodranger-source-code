@@ -4,6 +4,7 @@
 <?php include 'dbconn.php'; ?>
 <?php include 'auth.php'; ?>
 <?php middleware_user_level_admin($_SESSION['user_level']); ?>
+<?php $all_sensor_disp_mode = "admin"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -9,7 +9,12 @@ foreach($result as $result_obj){
   <div class="card ">
     <div class="card-header">
       <?php echo $result_obj->sensor_desc; ?>
+      <?php if ($all_sensor_disp_mode != "public") {
+    ?>
       <div class="text-right"><a class="text-link" href="admin_sensor_table_view.php?sensor_id=<?php echo $result_obj->sensor_id; ?>">Recent logs</a></div>
+      <?php
+     }
+      ?>
     </div>
     <div class="card-body pt-4">
       <div class="media">
@@ -21,7 +26,13 @@ foreach($result as $result_obj){
       </div>
     </div>
     <div class="card-footer">
+    <?php if ($all_sensor_disp_mode != "public") {
+    ?>
       <a href="admin_sensor_graph_view.php?sensor_id=<?php echo $result_obj->sensor_id; ?>" class="text-dark">More info</a>
+      <?php
+     }
+      ?>
+
     </div>
   </div>
 </div>

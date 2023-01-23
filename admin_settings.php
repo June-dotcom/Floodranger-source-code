@@ -149,6 +149,23 @@ Preloader start
                 </a>
             </div>
 
+            
+            <div class="col-12 col-lg-4">
+                <a href="admin_settings_traccar_main.php">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <p class="text-center">
+                                <img src="icons/traccar_icon.png" height="150">
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <h3 class="text-center lead">Traccar SMS gateway settings</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
 
         </div>
     </div>

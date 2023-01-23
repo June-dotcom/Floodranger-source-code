@@ -5,7 +5,7 @@ $contacts_query = $pdo->query("SELECT * FROM (SELECT contacts.phone_number, addr
 
 $contacts_obj = $contacts_query->fetchAll();
 
-$message_query = $pdo->query("SELECT * FROM flood_alert_levels JOIN flood_alert_sms ON flood_alert_levels.sms_alert_id = flood_alert_sms.sms_alert_id WHERE flood_alert_levels.alert_remark_id = '$alert_id' LIMIT 1");
+$message_query = $pdo->query("SELECT * FROM flood_alert_levels JOIN flood_alert_sms ON flood_alert_levels.sms_alert_id = flood_alert_sms.sms_alert_id WHERE flood_alert_levels.alert_remark_id = '$alert_id_tmp' LIMIT 1");
 
 $message_obj = $message_query->fetch();
 echo $message_obj->sms_message;
@@ -17,6 +17,13 @@ $msg_txt_tmp = $message_obj->sms_message;
 // insert to message queue
 $sql_insert = "INSERT INTO `sms_messages_queue` (`id`, `queue_message_id`,`alert_adapter_id`, `queue_message_txt`, `is_done_sending`, `created_at`, `updated_at`) VALUES (NULL, '$msg_queue_id', '$last_inserted_id' , '$msg_txt_tmp' , '0', current_timestamp(), current_timestamp())";
 $pdo->exec($sql_insert);
+
+
+// get authorization from database 
+$query_sms_auth_key = $pdo->query("SELECT * FROM preferences WHERE pref_id = 'SMSTOKENTRACCAR' LIMIT 1");
+$obj_sms_auth_key = $query_sms_auth_key->fetch();
+$token_sms = $obj_sms_auth_key->pref_val;
+
 foreach($contacts_obj as $contact_ent){
     
     // iterate only the phone numbers and messages
@@ -37,9 +44,9 @@ foreach($contacts_obj as $contact_ent){
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => json_encode(['to' => $phone_num_tmp, 'message' => $msg_txt_tmp]),
-
+        
         CURLOPT_HTTPHEADER => array(
-            'Authorization: cbpCg85RR8eONs_tds52eq:APA91bHMr1DSykX0CPdJeUNeEoysrBJelF6XfESXBDXyc69KzI0pGnGkEIYvSevkMfYewv_6E48gXJUgZkmbPJHTNeYuXXAVNHVuMCslluFm7YKp-v4HTqf8Q2Wxxaou4WnSZUKEGoEW',
+            'Authorization: ' . $token_sms,
             'Content-Type: application/json'
         ),
     ));

@@ -41,6 +41,7 @@
 
     <div class="row">
         <?php 
+            $all_sensor_disp_mode = "public";
         include 'all_sensors_cards.php';
         ?>
     </div>

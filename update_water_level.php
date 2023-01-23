@@ -22,6 +22,7 @@ if($chk_if_reset_obj->count_reset_if >= 1){
 if($remarks_id != 'FLDNRML'){
   // device based alert id
   // $fetch_flvl_qry = $pdo->query("SELECT flood_alert_levels.*, sensor_val_remarks.priority_id FROM flood_alert_levels JOIN sensor_val_remarks ON flood_alert_levels.alert_remark_id = sensor_val_remarks.remark_id WHERE flood_alert_levels.device_api_key = '$device_api_key' && alert_remark_id =  '$remarks_id' LIMIT 1;");
+  // fetch alert id from alert levels
   $fetch_flvl_qry = $pdo->query("SELECT flood_alert_levels.*, sensor_val_remarks.priority_id FROM flood_alert_levels JOIN sensor_val_remarks ON flood_alert_levels.alert_remark_id = sensor_val_remarks.remark_id WHERE alert_remark_id =  '$remarks_id' LIMIT 1;");
   $fetch_flvl_res = $fetch_flvl_qry->fetch();
 
@@ -104,7 +105,7 @@ function getTimeDiff($timestamp_tmp){
  $epoch_diff_time_curr = $timestamp_epoch - $current_time_epoch;
 
  $epoch_diff_time_hr = abs($epoch_diff_time_curr) / 3600;
- return $epoch_diff_time_hr;
+ return (int)$epoch_diff_time_hr;
 }
 
 function setTimeHourIntervalAlert($pdo){
@@ -112,7 +113,7 @@ function setTimeHourIntervalAlert($pdo){
   $query_interval = $pdo->query("SELECT * FROM preferences WHERE pref_id = 'PREFHRINTERVAL' LIMIT 1");
   $obj_interval = $query_interval->fetch();
   echo $obj_interval->pref_val;
-  return $obj_interval->pref_val;
+  return (int)$obj_interval->pref_val;
 }
 
 

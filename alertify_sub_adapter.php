@@ -7,7 +7,7 @@
    // refer to alertify set_new_alert.php
     $alert_id = $alert_id_tmp;
 
-    $last_inserted_query = $pdo->query("SELECT * FROM `flood_alert_levels` WHERE `alert_remark_id` = '$alert_id'");
+    $last_inserted_query = $pdo->query("SELECT * FROM `flood_alert_levels` WHERE `alert_remark_id` = '$alert_id_tmp'");
     $last_inserted_result = $last_inserted_query->fetch();
 
     $last_alert_remarks = $last_inserted_result->alert_remark_id;
