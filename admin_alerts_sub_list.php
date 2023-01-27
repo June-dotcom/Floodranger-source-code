@@ -50,7 +50,7 @@
                 <tbody>
                    <?php
                    //
-                   $sql = $pdo->query("SELECT * FROM alert_adapter INNER JOIN flood_alert_levels ON alert_adapter.alert_remark_id = flood_alert_levels.alert_remark_id LEFT JOIN devices ON alert_adapter.frm_device_api_key = devices.device_api_key");
+                   $sql = $pdo->query("SELECT *, (SELECT remark_color FROM sensor_val_remarks WHERE sensor_val_remarks.remark_id = alert_adapter.alert_remark_id LIMIT 1) as remark_color_tmp FROM alert_adapter INNER JOIN flood_alert_levels ON alert_adapter.alert_remark_id = flood_alert_levels.alert_remark_id LEFT JOIN devices ON alert_adapter.frm_device_api_key = devices.device_api_key");
                    $posts = $sql->fetchAll();
                    foreach($posts as $post){
                       ?>
@@ -61,7 +61,7 @@
                         <td>
                             <?php echo $post->module_name; ?>
                         </td>
-                        <td>
+                        <td style="background-color: <?php echo $post->remark_color_tmp; ?> !important; color: white;">
                             <?php echo $post->alert_remark_id; ?>
                         </td>
                         <td>
