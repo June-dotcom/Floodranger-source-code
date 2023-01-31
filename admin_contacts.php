@@ -118,7 +118,8 @@ Content body end
 
     $("#save_changes_add").click(function(){
       var email_val = $("#add_contact_email").val();
-      $.getJSON("duplicate_email_find.php", {email: email_val}, function(data){
+      if(email_val != ""){
+        $.getJSON("duplicate_email_find.php", {email: email_val}, function(data){
         console.log(data);
         console.log(data.isExistUsers.result);
         console.log(data.isExistContacts.result);
@@ -131,6 +132,11 @@ Content body end
             $("#form_add_new_contact").submit();
         }
     });
+      }else{
+        $("#form_add_new_contact").submit();
+
+      }
+  
 
 
   });
@@ -139,7 +145,8 @@ Content body end
     function validateEditId(email_edit_id, form_submit_id, status_disp_txt_id){
         // alert(email_edit_id + ' ' + form_submit_id + ' ' + status_disp_txt_id);
         var email_val = $('#' + email_edit_id).val();
-        $.getJSON("duplicate_email_find.php", {email: email_val}, function(data){
+        if(email_val != ''){
+            $.getJSON("duplicate_email_find.php", {email: email_val}, function(data){
         // if(data.isExistUsers.result >= 1){
         //     $("#reg_status_fields").html("Email already exists! login instead");
         // }
@@ -150,6 +157,11 @@ Content body end
                 $('#' + form_submit_id).submit();
             }
         });
+        }else{
+            $('#' + form_submit_id).submit();
+
+        }
+       
     }
 
 

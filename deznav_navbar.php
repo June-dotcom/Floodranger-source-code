@@ -30,7 +30,7 @@
 						</a>
 					</li>
 
-					<li class="<?php echo ($section == "Alerts History") ? 'mm-active' : ''; ?>"><a href="admin_alerts_history.php" class="ai-icon" aria-expanded="false">
+					<li class="<?php echo ($section == "Alerts_hist") ? 'mm-active' : ''; ?>"><a href="admin_alerts_history.php" class="ai-icon" aria-expanded="false">
 							<i class="flaticon-381-time"></i>
 							<span class="nav-text">Alerts history</span>
 						</a>

@@ -3,6 +3,7 @@
   define('DB_USERNAME', 'root');
   define('DB_PASSWORD', '');
   define('DB_NAME', 'floodranger');
+  date_default_timezone_set('Asia/Taipei');
 
   try {
     $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);

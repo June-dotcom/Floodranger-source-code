@@ -8,21 +8,36 @@
                     $device_obj = $device_list->fetchAll();
                     ?>
                     <a href="?category=all" type="button"
-                        class='btn <?php echo (($_GET["category"] == "all") || (empty($_GET["category"]))) ? "btn-dark" : "btn-light"; ?>'>All
+                        class='btn <?php echo (($_GET["category"] == "all") || (empty($_GET["category"]))) ? "btn-dark" : "btn-light"; ?> btn-sm'>All
                         contacts</a>
                     <?php
                     foreach ($device_obj as $device_ent) {
                     ?>
                     <a href="?category=<?php echo $device_ent->device_api_key; ?>"
-                        class='btn <?php echo ($_GET["category"] == $device_ent->device_api_key) ? "btn-dark" : "btn-light"; ?>'><?php echo $device_ent->module_name; ?></a>
+                        class='btn <?php echo ($_GET["category"] == $device_ent->device_api_key) ? "btn-dark" : "btn-light"; ?>  btn-sm'><?php echo $device_ent->module_name; ?></a>
                     <?php 
                     }
                     ?>
+                     <a href="?category=removed" type="button"
+                        class='btn <?php echo ($_GET["category"] == "removed") ? "btn-dark" : "btn-light"; ?> btn-sm'>Cleared contacts archive
+                    </a>
                 </div>
 
-                <div style="align: right"><button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#exampleModal">Add new</button>
+                <div style="align: right">
+                        <?php 
+                            if(isset($_GET["category"]) && $_GET["category"] == "removed"){
+                                ?>
+          
 
+                                <?php
+                            }else{
+                                ?>
+ <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleModal">Add new</button>
+                                <?php
+                            }
+                        ?>
+             
                     <!--  add new contact number Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -39,8 +54,8 @@
                                     <label>Name</label>
                                     <input class="form-control" name="contact_name" id="add_contact_name"></input>
 
-                                    <label>Email</label>
-                                    <input required class="form-control" name="email" id="add_contact_email"></input>
+                                    <label>Email(optional leave blank if not applicable)</label>
+                                    <input class="form-control" name="email" id="add_contact_email"></input>
                                     <label>Phone number</label>
                                     <input required class="form-control" name="phone_number"
                                         id="add_phone_number"></input>
@@ -99,12 +114,18 @@
                             $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1'");
                             $posts = $sql->fetchAll();
                         }  else if($_GET['category'] != "all" && isset($_GET['category'])){
-                            $device_api_key_tmp = $_GET['category'];
-                            $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id, address_table.device_covered_by FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1' AND address_table_tmp.device_covered_by = '$device_api_key_tmp'");
-                            $posts = $sql->fetchAll();
+                            if($_GET['category'] == "removed"){
+                                $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id, address_table.device_covered_by FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '0'");
+                                $posts = $sql->fetchAll();
+                            }else{
+                                $device_api_key_tmp = $_GET['category'];
+                                $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id, address_table.device_covered_by FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1' AND address_table_tmp.device_covered_by = '$device_api_key_tmp'");
+                                $posts = $sql->fetchAll();
+                            }
+                      
                         }
                     }else{
-                        
+
                             $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1'");
                             $posts = $sql->fetchAll();
                         
@@ -124,16 +145,33 @@
 
                                 </td>
                                 <td>
-
-                                    <button type="button" class="btn btn-danger btn-round btn-sm" data-toggle="modal"
+                                
+                                        <?php 
+                                            if(isset($_GET['category']) && $_GET['category'] == 'removed'){
+                                                ?>
+                                                <button type="button" class="btn btn-danger btn-round btn-sm" data-toggle="modal"
+                                                    data-target="#restoreModal<?php echo $post->contacts_id?>">Restore to list</button>
+                                                <?php 
+                                            }else{
+                                                ?>
+                                                <button type="button" class="btn btn-warning btn-round btn-sm" data-toggle="modal" 
+                                                data-target="#clearModal<?php echo $post->contacts_id?>">Move to archived</button>
+                                                <?php
+                                            }   
+                                        ?>
+                                        <button type="button" class="btn btn-danger btn-round btn-sm" data-toggle="modal"
                                         data-target="#deleteModal<?php echo $post->contacts_id?>">Delete</button>
+
+                                      
 
                                     <button type="button" class="btn btn-info btn-round btn-sm" data-toggle="modal"
                                         data-target="#editModal<?php echo $post->contacts_id?>">Edit</button>
 
+                                
+                                  
                                 </td>
 
-                                <!-- Modal -->
+                                <!-- delete Modal -->
                                 <div class="modal fade" id="deleteModal<?php echo $post->contacts_id?>" tabindex="-1"
                                     aria-labelledby="deleteModal<?php echo $post->contacts_id?>Label"
                                     aria-hidden="true">
@@ -141,18 +179,61 @@
                                         <div class="modal-content">
                                             <div class="modal-body">
                                                 <h4 class="text-center lead">Do you want to delete this contact named
-                                                    <?php echo $post->contact_name?> ?</h4>
+                                                    <?php echo $post->contact_name?> ?<br><span class="text-red">This entity will be cannot be recovered once it is deleted</span></h4>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <a class="btn btn-danger btn-round btn-sm"
-                                                    href="delete_contact_num.php?id=<?php echo $post->contacts_id?>">Yes</a>
+                                                    href="delete_contact_num.php?id=<?php echo $post->contacts_id?>&mode=erase">Yes</a>
                                                 <button type="button" class="btn btn-sm btn-secondary"
                                                     data-dismiss="modal">No</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- end of modal -->
+                                <!-- end of delete modal -->
+
+                                 <!-- Restore Modal -->
+                                 <div class="modal fade" id="restoreModal<?php echo $post->contacts_id?>" tabindex="-1"
+                                    aria-labelledby="restoreModal<?php echo $post->contacts_id?>Label"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <h4 class="text-center lead">Do you want to restore this contact named
+                                                    <?php echo $post->contact_name?> ?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-danger btn-round btn-sm"
+                                                    href="delete_contact_num.php?id=<?php echo $post->contacts_id?>&mode=restore">Yes</a>
+                                                <button type="button" class="btn btn-sm btn-secondary"
+                                                    data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of restore modal -->
+
+                                 <!--clear  Modal -->
+                                 <div class="modal fade" id="clearModal<?php echo $post->contacts_id?>" tabindex="-1"
+                                    aria-labelledby="clearModal<?php echo $post->contacts_id?>Label"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <h4 class="text-center lead">Do you want to clear this contact named
+                                                    <?php echo $post->contact_name?> ? <br> This entity will be moved to the cleared contacts archive</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-danger btn-round btn-sm"
+                                                    href="delete_contact_num.php?id=<?php echo $post->contacts_id?>&mode=clear">Yes</a>
+                                                <button type="button" class="btn btn-sm btn-secondary"
+                                                    data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of clear modal -->
 
 
                                 <!-- modal start -->
@@ -175,7 +256,7 @@
                                                     <label>Name</label>
                                                     <input class="form-control" name="contact_name"
                                                         value="<?php echo $post->contact_name ? $post->contact_name: ''; ?>"></input>
-                                                    <label>Email</label>
+                                                    <label>Email(optional leave blank if not applicable)</label>
                                                     <input class="form-control" name="email"
                                                         id="email_id<?php echo $post->contacts_id; ?>"
                                                         value="<?php echo $post->email ? $post->email: ''; ?>"></input>

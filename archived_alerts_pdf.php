@@ -2,15 +2,14 @@
 <?php 
 include 'vendor/autoload.php';
 include 'dbconn.php';
-date_default_timezone_set('Asia/Taipei');
 
 
-$pdf = new CezPDF('a4');
+$pdf = new CezPDF('b5');
 
 $pdf->selectFont('Helvetica');
 $pdf->ezText('<b>Alert logs</b>', 30);
 // $pdf->ezText('Save a backup if you are going to reset it.', 12);
-$curr_date =  date('m/d/Y h:i:s a', time());
+$curr_date =  date_formatter_military(date('m/d/Y h:i:s a', time()));
 $pdf->ezText('As of ' . $curr_date , 20);
 
 $cols = ['device_api_key' => 'Device api key', 'module_name' => 'Device name', 'alert_remark' => 'Alert remark', 'timestamp' => 'Date created'];
@@ -21,7 +20,7 @@ $conf = [
 ];
 $data = array();
 
-$query_data = $pdo->query("SELECT * FROM alert_adapter INNER JOIN flood_alert_levels ON alert_adapter.alert_remark_id = flood_alert_levels.alert_remark_id LEFT JOIN devices ON alert_adapter.frm_device_api_key = devices.device_api_key ORDER BY alert_adapter.timestamp DESC");
+$query_data = $pdo->query("SELECT *, (SELECT remark_color FROM sensor_val_remarks WHERE sensor_val_remarks.remark_id = alert_adapter.alert_remark_id LIMIT 1) as remark_color_tmp FROM alert_adapter INNER JOIN flood_alert_levels ON alert_adapter.alert_remark_id = flood_alert_levels.alert_remark_id LEFT JOIN devices ON alert_adapter.frm_device_api_key = devices.device_api_key WHERE alert_adapter.is_active = 1");
 // array_push($data,  ['num' => 6, 'name' => 'sauron', 'type' => 'really bad dude']);
 $obj_data = $query_data->fetchAll();
 foreach($obj_data as $ent_data){
@@ -31,10 +30,11 @@ foreach($obj_data as $ent_data){
 $pdf->ezTable($data, $cols, '',$conf);
 
 
+
 if (isset($_GET['d']) && $_GET['d']) {
 	ob_end_clean();
 	echo $pdf->ezOutput(true);
 } else {
 	ob_end_clean();
-	$pdf->ezStream();
+	$pdf->ezStream(array('download' => 1));
 }

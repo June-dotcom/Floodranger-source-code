@@ -105,9 +105,10 @@ Preloader start
 <script src="js/dashboard/dashboard-1.js"></script>
 <script>
     $(document).ready( function () {
-        $('#sensor_table').DataTable({
-            order: [[2, 'desc']],
-        });
+        // $('#sensor_table').DataTable({
+        //     order: [[2, 'desc']],
+        // });
+        $('#sensor_table').DataTable();
 
     });
 

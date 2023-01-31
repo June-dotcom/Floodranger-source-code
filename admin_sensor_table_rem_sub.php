@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Recently removed logs for <?php echo $sensor_id;?></h4>
-            <!-- <div class="text-right"><a class="text-link" href="restore_logs.php?sensor_id=<?php echo $sensor_id; ?>">Restore all logs</a></div> -->
+            <div class="text-right"><a class="text-link" href="recent_logs_pdf.php?sensor_id=<?php echo $sensor_id; ?>&mode=cleared">PDF version</a></div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -65,6 +65,21 @@
         <div class="card-body">
            <table class="table table-striped">
             <tbody>
+            <?php 
+                   $curr_status = $pdo->query("SELECT * FROM (SELECT sensor_value, timestamps, sensor_val_remarks.remark_id, sensor_val_remarks.remark_color FROM `sensor_logs` JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_logs.remarks_id WHERE sensor_id = '$sensor_id' AND sensor_logs.is_active = 1) as tbl_sensor ORDER BY timestamps DESC LIMIT 1");
+                   $post_single_ent = $curr_status->fetch();
+                ?>
+                <tr>
+                    <td>As of </td>
+                     <td> <?php echo date_formatter_military($post_single_ent->timestamps); ?></td>
+                    </tr>
+           
+            <tr>
+                <td>Current flood alert status </td>
+                <td style="background-color: <?php echo $post_single_ent->remark_color;?> !important;color: white;">
+                                <?php echo $post_single_ent->remark_id; ?>
+                            </td>
+            </tr>
               <tr>
                 <td>Sensor type</td>
                 <td><?php echo $dev_info_res->sensor_type; ?></td>

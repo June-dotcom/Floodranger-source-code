@@ -9,8 +9,9 @@ $remarks_id = $_GET['fld_level_status'];
 
 $chk_if_reset = $pdo->query("SELECT COUNT(*) as count_reset_if FROM sensor_logs WHERE sensor_value IS NULL AND sensor_id = '$sensor_id' LIMIT 1");
 $chk_if_reset_obj = $chk_if_reset->fetch();
+// just update the first row
 if($chk_if_reset_obj->count_reset_if >= 1){
-  $pdo->exec("UPDATE sensor_logs SET sensor_value = '$current_water_level' WHERE sensor_value IS NULL AND sensor_id = '$sensor_id'");
+  $pdo->exec("UPDATE sensor_logs SET sensor_value = '$current_water_level', timestamps = now() WHERE sensor_value IS NULL AND sensor_id = '$sensor_id'");
 }else{
   $sql = "INSERT INTO `sensor_logs` (`id`, `sensor_id`, `sensor_value`,  `remarks_id`, `timestamps`) VALUES (NULL, :sensor_id, :current_water_level, :remarks_id_val, current_timestamp())";
   $stmt = $pdo->prepare($sql);
@@ -31,7 +32,7 @@ if($remarks_id != 'FLDNRML'){
 
   // select latest alert adapter based on deviceapikey/sensor id
 //SELECT * FROM alert_adapter JOIN flood_alert_levels ON flood_alert_levels.alert_id = alert_adapter.alert_id JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = flood_alert_levels.alert_remarks  WHERE frm_device_api_key = 'URDFLD01' ORDER BY timestamp DESC LIMIT 1;
-  $fetch_alrt_adpt_qry = $pdo->query("SELECT * FROM alert_adapter JOIN flood_alert_levels ON flood_alert_levels.alert_remark_id = alert_adapter.alert_remark_id JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = flood_alert_levels.alert_remark_id  WHERE frm_device_api_key = '$device_api_key_tmp' ORDER BY timestamp DESC LIMIT 1");
+  $fetch_alrt_adpt_qry = $pdo->query("SELECT * FROM alert_adapter JOIN flood_alert_levels ON flood_alert_levels.alert_remark_id = alert_adapter.alert_remark_id JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = flood_alert_levels.alert_remark_id  WHERE frm_device_api_key = '$device_api_key_tmp' AND alert_adapter.is_active = 1 ORDER BY timestamp DESC LIMIT 1");
   $fetch_alrt_adpt_res = $fetch_alrt_adpt_qry->fetch();
   // if latest from device api key alert id is matched from fetched alert id
   echo json_encode($fetch_alrt_adpt_res);

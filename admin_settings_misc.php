@@ -95,7 +95,6 @@ include 'deznav_navbar.php';
 
                     <div class="card-body">
                      Change user name and password
-
                  </div>
              </a>
 
@@ -145,7 +144,7 @@ include 'deznav_navbar.php';
                 Reset contacts
             </div>
             <div class="card-body">
-               <p><span class="font-weight-bold">Clear list</span>&nbsp;Hide all contacts from the contact list. Data can be restored</p>
+               <p><span class="font-weight-bold">Clear list</span>&nbsp;Hide all contacts from the contact list. Cleared data can be viewed in the archive section</p>
                <p><span class="font-weight-bold text-red">Erase all</span>&nbsp;Remove all contacts from the list forever. Data cannot be restored.</p>
             </div>
             <div class="card-footer">
@@ -160,7 +159,7 @@ include 'deznav_navbar.php';
             </div>
     </div>
 </div>
-<!-- start of clear Modal -->
+<!-- start of clear contacts Modal -->
 <div class="modal fade" id="clearContacts" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="clearContactsLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -175,7 +174,7 @@ include 'deznav_navbar.php';
  </div>
  <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-    <a href="reset_contacts.php?mode=archive" class="btn btn-danger" >Confirm</a>
+    <a href="reset_contacts.php?mode=clear" class="btn btn-danger" >Confirm</a>
 </div>
 </div>
 </div>
@@ -238,11 +237,11 @@ include 'deznav_navbar.php';
       </button>
   </div>
   <div class="modal-body">
-     Do you want to clear all sensor logs? All flood monitoring logs and graphs will be empty. Data can be restored in the archive tab.
+     Do you want to clear all sensor logs? All flood monitoring logs and graphs will be empty. Cleared data can be viewed in the archive section of the recent logs.
  </div>
  <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-    <a href="reset_sensor_logs.php?mode=archive" class="btn btn-danger" >Confirm</a>
+    <a href="reset_sensor_logs.php?mode=clear" class="btn btn-danger" >Confirm</a>
 </div>
 </div>
 </div>
@@ -271,7 +270,7 @@ include 'deznav_navbar.php';
 </div>
 </div>
 <!-- end of reset sensor logs modal -->
-<!-- card reset alert logs -->
+<!-- card reset clear alert logs -->
 <div class="col-12 col-lg-8">
     <div class="card">
             <div class="card-header">
@@ -292,7 +291,7 @@ include 'deznav_navbar.php';
         </a>
     </div>
 </div>
-<!-- end of reset alert logs -->
+<!-- end of reset clear alert logs -->
 <!-- start of Modal -->
 <div class="modal fade " id="resetAlertLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetAlertLogsLogsLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -328,7 +327,7 @@ include 'deznav_navbar.php';
       </button>
   </div>
   <div class="modal-body">
-    Do you want clean all alert logs from the list. Data can be viewed in the archive tab
+    Do you want clear all alert logs from the list. Data can be viewed in the archive tab
  </div>
  <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>

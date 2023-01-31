@@ -177,6 +177,7 @@ Preloader start
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
 
+<!-- custom script for sensor view -->
 <script type="text/javascript" src="script_sensor_view.js"></script>
 <!-- Chart piety plugin files -->
 

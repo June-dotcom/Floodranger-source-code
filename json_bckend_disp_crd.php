@@ -14,7 +14,7 @@ foreach($fetch_sensors_res as $fetch_sensors_ent){
 	
 	// $sql_tmp_ent = "SELECT sensor_ent.sensor_value as sensor_val, sensor_profiles.sensor_id, sensor_ent.timestamps as updated_at, sensor_ent.remarks_id as sensor_val_remarks FROM sensor_profiles JOIN (SELECT sensor_log_tmp.* FROM (SELECT sensor_logs.* FROM sensor_logs WHERE `sensor_id` = '$sensor_id_ent') as sensor_log_tmp ORDER BY sensor_log_tmp.timestamps DESC LIMIT 1) as sensor_ent ON sensor_ent.sensor_id = sensor_profiles.sensor_id";
 
-  $sql_tmp_ent = "SELECT sensor_ent.sensor_value as sensor_val, sensor_profiles.sensor_id, sensor_ent.timestamps as updated_at, sensor_val_remarks.remark_description as sensor_val_remarks FROM sensor_profiles JOIN (SELECT sensor_log_tmp.* FROM (SELECT sensor_logs.* FROM sensor_logs WHERE `sensor_id` = '$sensor_id_ent') as sensor_log_tmp ORDER BY sensor_log_tmp.timestamps DESC LIMIT 1) as sensor_ent ON sensor_ent.sensor_id = sensor_profiles.sensor_id JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_ent.remarks_id";
+  $sql_tmp_ent = "SELECT sensor_ent.sensor_value as sensor_val, sensor_profiles.sensor_id, sensor_ent.timestamps as updated_at, sensor_val_remarks.remark_description as sensor_val_remarks FROM sensor_profiles JOIN (SELECT sensor_log_tmp.* FROM (SELECT sensor_logs.* FROM sensor_logs WHERE `sensor_id` = '$sensor_id_ent' AND sensor_logs.is_active = 1) as sensor_log_tmp ORDER BY sensor_log_tmp.timestamps DESC LIMIT 1) as sensor_ent ON sensor_ent.sensor_id = sensor_profiles.sensor_id JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_ent.remarks_id";
 
 	
 	$fetch_ent = $pdo->prepare($sql_tmp_ent);
@@ -31,7 +31,10 @@ foreach($fetch_sensors_res as $fetch_sensors_ent){
 
 	if($fetch_ent_res){
 			// echo json_encode($fetch_ent_res);
-		array_push($sensor_curr_arr_obj, new current_val($fetch_ent_res->sensor_id, $fetch_ent_res->sensor_val, $fetch_ent_res->updated_at, $fetch_ent_res->sensor_val_remarks ?? null, $overflow_tmp_res->is_overflow));
+			// replace updated at for military time format
+			$date = date_create($fetch_ent_res->updated_at);
+			$date_formatted_tmp = date_format($date,"g:i:s A d-M-Y");
+			array_push($sensor_curr_arr_obj, new current_val($fetch_ent_res->sensor_id, $fetch_ent_res->sensor_val, date_formatter_military($fetch_ent_res->updated_at), $fetch_ent_res->sensor_val_remarks ?? null, $overflow_tmp_res->is_overflow));
 
 	}
 		

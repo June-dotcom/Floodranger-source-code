@@ -69,7 +69,7 @@ Nav header start
     </div>
 </div>
 <?php 
-$section = "Alerts flags";
+$section = "Alerts_hist";
 include 'header_nav.php';
 include 'deznav_navbar.php';
 ?>
