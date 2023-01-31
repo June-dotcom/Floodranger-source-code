@@ -88,7 +88,7 @@ include 'deznav_navbar.php';
         </nav>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-8">
 
             <div class="card">
                 <a href="#"  data-toggle="modal" data-target="#changeUserPassModal">
@@ -139,18 +139,52 @@ include 'deznav_navbar.php';
 </div>
 </div>
 <!-- end of modal -->
-<div class="col-12 col-lg-4">
+<div class="col-12 col-lg-8">
     <div class="card">
-        <a href="#"  data-toggle="modal" data-target="#resetContacts">
-            <div class="card-body">
-                Reset contacts and user created accounts
+            <div class="card-header">
+                Reset contacts
             </div>
-        </a>
+            <div class="card-body">
+               <p><span class="font-weight-bold">Clear list</span>&nbsp;Hide all contacts from the contact list. Data can be restored</p>
+               <p><span class="font-weight-bold text-red">Erase all</span>&nbsp;Remove all contacts from the list forever. Data cannot be restored.</p>
+            </div>
+            <div class="card-footer">
+            <a href="#"  data-toggle="modal" class="font-weight-bold btn btn-light" data-target="#clearContacts">
+                Clear list
+            </a>
+    
+            <a href="#"  data-toggle="modal" class="text-red font-weight-bold btn btn-light" data-target="#resetContacts">
+                Erase all
+            </a>
+
+            </div>
     </div>
 </div>
-<!-- start of Modal -->
-<div class="modal fade" id="resetContacts" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetContactsLabel" aria-hidden="true">
+<!-- start of clear Modal -->
+<div class="modal fade" id="clearContacts" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="clearContactsLabel" aria-hidden="true">
   <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clearContactsLabel">Clear contacts</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+     Do you want to clear all contacts and user created accounts? All contacts and user created accounts will be empty. Data can be restored in the archive tab.
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+    <a href="reset_contacts.php?mode=archive" class="btn btn-danger" >Confirm</a>
+</div>
+</div>
+</div>
+</div>
+<!-- end of clear modal -->
+
+<!-- start of erase Modal -->
+<div class="modal fade" id="resetContacts" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetContactsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="resetContactsLabel">Reset contacts</h5>
@@ -159,30 +193,65 @@ include 'deznav_navbar.php';
       </button>
   </div>
   <div class="modal-body">
-     Do you want to clear all contacts and user created accounts? All contacts and user created accounts will be empty.
+     Do you want to erase all. Remove all contacts from the list forever. Data cannot be restored.It is recommended that you download the PDF archive of the contacts before confirming.
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+    <a href="contacts_backup_pdf.php" class="btn btn-primary btn-sm">Download PDF archive</a>
+    <a href="reset_contacts.php?mode=erase" class="btn btn-danger btn-sm">Confirm</a>
+</div>
+</div>
+</div>
+</div>
+<!-- end of erase modal -->
+
+<!-- start of reset sensor logs card -->
+<div class="col-12 col-lg-8">
+    <div class="card">
+            <div class="card-header">
+                Reset sensor logs
+            </div>
+            <div class="card-body">
+            <p><span class="font-weight-bold">Clear list</span>&nbsp;Clean all sensor logs from the dashboard. Data can be viewed in the archive tab</p>
+               <p><span class="font-weight-bold text-red">Erase all</span>&nbsp;Remove all contacts from the database forever. Data cannot be restored.</p>
+            </div>
+            <div class="card-footer">
+            <a href="#"  data-toggle="modal" class="btn btn-light font-weight-bold" data-target="#clearListSensorLogs">
+                Clear list
+            </a>
+            <a href="#"  data-toggle="modal" class="btn btn-light text-red font-weight-bold" data-target="#resetSensorLogs">
+                Erase all 
+            </a>
+            </div>
+    </div>
+</div>
+<!-- end of reset sensor logs card -->
+
+<!-- start of  clear list sensor logs card Modal -->
+<div class="modal fade" id="clearListSensorLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="clearListSensorLogsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clearListSensorLogsLabel">Sensor logs clear list </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+     Do you want to clear all sensor logs? All flood monitoring logs and graphs will be empty. Data can be restored in the archive tab.
  </div>
  <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-    <a href="reset_contacts.php" class="btn btn-danger" >Confirm</a>
+    <a href="reset_sensor_logs.php?mode=archive" class="btn btn-danger" >Confirm</a>
 </div>
 </div>
 </div>
 </div>
 <!-- end of modal -->
 
-<div class="col-12 col-lg-4">
-    <div class="card">
-        <a href="#"  data-toggle="modal" data-target="#resetSensorLogs">
-            <div class="card-body">
-                Reset sensor logs
-            </div>
-        </a>
-    </div>
-</div>
-
-<!-- start of Modal -->
+<!-- start of reset sensor logs modal -->
 <div class="modal fade" id="resetSensorLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetSensorLogsLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="resetSensorLogsLabel">Reset sensor logs</h5>
@@ -191,47 +260,85 @@ include 'deznav_navbar.php';
       </button>
   </div>
   <div class="modal-body">
-     Do you want to clear all sensor logs? All flood monitoring logs and graphs will be empty.
+     Do you want to clear all sensor logs? All flood monitoring logs and graphs will be empty. Data cannot be restored.<br> It is recommended to download the backup before deleting all the sensor logs data.
  </div>
  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-    <a href="reset_sensor_logs.php" class="btn btn-danger" >Confirm</a>
+    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+    <a href="recent_logs_global_pdf.php" class="btn btn-info btn-sm" >Download PDF archive</a>
+    <a href="reset_sensor_logs.php?mode=erase" class="btn btn-danger btn-sm" >Confirm</a>
 </div>
 </div>
 </div>
 </div>
-<!-- end of modal -->
-<div class="col-12 col-lg-4">
+<!-- end of reset sensor logs modal -->
+<!-- card reset alert logs -->
+<div class="col-12 col-lg-8">
     <div class="card">
-        <a href="#"  data-toggle="modal" data-target="#resetAlertLogs">
-            <div class="card-body">
+            <div class="card-header">
                 Reset alert logs
+            </div>
+            <div class="card-body">
+                <p><span class="font-weight-bold">Clear list</span>&nbsp;Clean all alert logs from the list. Data can be viewed in the archive tab</p>
+               <p><span class="font-weight-bold text-red">Erase all</span>&nbsp;Remove all alert logs from the database forever. Data cannot be restored.</p>
+            </div>
+            <div class="card-footer">
+            <a href="#"  data-toggle="modal" class="btn font-weight-bold btn-light" data-target="#archiveAlertLogs">
+                Clear list
+            </a>
+            <a href="#"  data-toggle="modal" class="btn font-weight-bold text-red btn-light" data-target="#resetAlertLogs">
+                Erase all
+            </a>
             </div>
         </a>
     </div>
 </div>
-
+<!-- end of reset alert logs -->
 <!-- start of Modal -->
-<div class="modal fade" id="resetAlertLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetAlertLogsLogsLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade " id="resetAlertLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="resetAlertLogsLogsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="resetAlertLogsLogsLabel">Reset alert logs</h5>
+        <h5 class="modal-title" id="resetAlertLogsLogsLabel">Reset alert logs </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-     Do you want to clear all alert logs? All alert notification state will be resetted.
+  Do you want remove all alert logs from the database forever. Data cannot be restored. <br/>It is recommended that you save the pdf archived version of the alert logs list first for backup purposes.
  </div>
  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-    <a href="reset_global_alert_flags.php" class="btn btn-danger" >Confirm</a>
+    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+    <a href="archived_alerts_pdf.php" class="btn btn-primary btn-sm" >Download PDF archive</a>
+
+    <a href="reset_global_alert_flags.php?mode=erase" class="btn btn-danger btn-sm" >Confirm</a>
 </div>
 </div>
 </div>
 </div>
 <!-- end of modal -->
+
+<!-- start of Modal clear alert logs -->
+<div class="modal fade" id="archiveAlertLogs" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="archiveAlertLogsLogsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="archiveAlertLogsLogsLabel">Clear alert logs list</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    Do you want clean all alert logs from the list. Data can be viewed in the archive tab
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+    <a href="reset_global_alert_flags.php?mode=archive" class="btn btn-danger" >Confirm</a>
+</div>
+</div>
+</div>
+</div>
+<!-- end of modal -->
+
 </div>
 </div>
 

@@ -65,7 +65,7 @@
                             <?php echo $post->alert_remark_id; ?>
                         </td>
                         <td>
-                            <?php echo $post->timestamp; ?>
+                            <?php echo date_formatter_military($post->timestamp); ?>
                         </td>
                     </tr>
                     <?php 

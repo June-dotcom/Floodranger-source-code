@@ -5,13 +5,20 @@ include "json_chart_fld_obj.php";
 $sensor_id = $_GET['sensor_id'];
 if ($_GET['mode'] == 'latest') {
 	if (isset($_GET['sensor_id'])) {
+		$sensor_vals_arr_obj = array();
 		$sensor_id = $_GET['sensor_id'];
-		$query = $pdo->query("SELECT * FROM (SELECT * FROM `sensor_logs` WHERE `sensor_id` = '$sensor_id' ORDER BY timestamps DESC LIMIT 30) as tbltemp ORDER BY timestamps ASC");
-		$result = $query->fetchAll();
-		echo json_encode($result);
+		$query = $pdo->query("SELECT * FROM (SELECT *  FROM `sensor_logs` WHERE `sensor_id` = '$sensor_id' ORDER BY timestamps DESC LIMIT 30) as tbltemp ORDER BY timestamps ASC");
+		$result_obj = $query->fetchAll();
+		foreach($result_obj as $result_ent){
+			$avrg_ent = $result_ent->sensor_value;
+			$timestamp_ent = date_formatter_military($result_ent->timestamps);
+			array_push($sensor_vals_arr_obj, new chartValFld($avrg_ent, $timestamp_ent));
+
+		}
+		echo json_encode($sensor_vals_arr_obj);
 	}
 }else if($_GET['mode'] == 'this_day'){
-	
+	// DATE_FORMAT(sensor_log_tmp.timestamps, '%r %d-%b-%Y') as date_formatted
 	$sql_tmp_fd_hr = "SELECT DISTINCT HOUR(sensor_log_tmp.timestamps) as hours, DATE(sensor_log_tmp.timestamps) as date_tmp  FROM (SELECT * FROM sensor_logs WHERE sensor_id = '$sensor_id') AS sensor_log_tmp WHERE DATE(sensor_log_tmp.timestamps) = CURDATE();";
 	$hours_qry = $pdo->query($sql_tmp_fd_hr);
 	$hours_res = $hours_qry->fetchAll();
@@ -27,6 +34,8 @@ if ($_GET['mode'] == 'latest') {
 
 		$avrg_ent = $avg_res->avg_tmp;
 		$timestamp_ent = $date_obj_tmp . " " . $hours_obj_tmp . ":00";
+		$timestamp_ent = date_formatter_military($timestamp_ent);
+		
 		array_push($sensor_vals_arr_obj, new chartValFld($avrg_ent, $timestamp_ent));
 	}
 	echo json_encode($sensor_vals_arr_obj);
@@ -50,6 +59,8 @@ if ($_GET['mode'] == 'latest') {
 
 		$avrg_ent = $avg_res_wk->avg_tmp;
 		$timestamp_ent = $date_obj_tmp;
+		$timestamp_ent = date_only_formatter_military($timestamp_ent);
+
 		array_push($sensor_vals_arr_obj, new chartValFld($avrg_ent, $timestamp_ent));
 	}
 	echo json_encode($sensor_vals_arr_obj);
@@ -71,6 +82,7 @@ if ($_GET['mode'] == 'latest') {
 
 		$avrg_ent = $avg_res_mt->avg_tmp;
 		$timestamp_ent = $date_obj_tmp;
+		$timestamp_ent = date_only_formatter_military($timestamp_ent);
 		array_push($sensor_vals_arr_obj, new chartValFld($avrg_ent, $timestamp_ent));
 	}
 	echo json_encode($sensor_vals_arr_obj);

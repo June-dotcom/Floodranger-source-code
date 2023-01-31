@@ -94,15 +94,22 @@
                         </thead>
                         <tbody>
                             <?php
-                 
-                    if($_GET['category'] == "all" || empty($_GET['category'])){
-                        $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1'");
-                        $posts = $sql->fetchAll();
-                    }else if($_GET['category'] != "all" && isset($_GET['category'])){
-                        $device_api_key_tmp = $_GET['category'];
-                        $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id, address_table.device_covered_by FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1' AND address_table_tmp.device_covered_by = '$device_api_key_tmp'");
-                        $posts = $sql->fetchAll();
+                    if(isset($_GET['category'])){
+                        if($_GET['category'] == "all" || empty($_GET['category'])){
+                            $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1'");
+                            $posts = $sql->fetchAll();
+                        }  else if($_GET['category'] != "all" && isset($_GET['category'])){
+                            $device_api_key_tmp = $_GET['category'];
+                            $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id, address_table.device_covered_by FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1' AND address_table_tmp.device_covered_by = '$device_api_key_tmp'");
+                            $posts = $sql->fetchAll();
+                        }
+                    }else{
+                        
+                            $sql = $pdo->query("SELECT DISTINCT contacts.id as contacts_id, contacts.*, address_table_tmp.address_id as address_id ,address_table_tmp.* FROM contacts JOIN (SELECT DISTINCT address_table.address_id, address_table.barangay, address_table.municipality, address_table.province,address_table.evacuation_id FROM address_table) as address_table_tmp ON contacts.address_id = address_table_tmp.address_id WHERE contacts.is_permitted = '1'");
+                            $posts = $sql->fetchAll();
+                        
                     }
+                 
                    
                    foreach($posts as $post){
                       ?>

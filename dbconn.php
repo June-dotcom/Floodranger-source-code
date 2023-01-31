@@ -11,3 +11,20 @@
   } catch(PDOException $e) {
     die("ERROR: Could not connect. " . $e->getMessage());
   }
+
+  ?>
+  <?php 
+    // predefine global functions
+
+    function date_formatter_military($date_param){
+      $date_tmp = date_create($date_param);
+      $date_formatted_tmp = date_format($date_tmp,"g:i:s A d-M-Y");
+      return $date_formatted_tmp;
+    }
+
+    function date_only_formatter_military($date_param){
+      $date_tmp = date_create($date_param);
+      $date_formatted_tmp = date_format($date_tmp,"d-M-Y");
+      return $date_formatted_tmp;
+    }
+  ?>

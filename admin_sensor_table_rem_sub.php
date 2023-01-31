@@ -1,9 +1,9 @@
-  <?php $sensor_id = $_GET['sensor_id'];?>
+<?php $sensor_id = $_GET['sensor_id'];?>
   <div class="col col-12 col-lg-8">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Recent logs for <?php echo $sensor_id;?></h4>
-            <div class="text-right"><a class="text-link" href="recent_logs_pdf.php?sensor_id=<?php echo $sensor_id; ?>">PDF archived version</a></div>
+            <h4 class="card-title">Recently removed logs for <?php echo $sensor_id;?></h4>
+            <!-- <div class="text-right"><a class="text-link" href="restore_logs.php?sensor_id=<?php echo $sensor_id; ?>">Restore all logs</a></div> -->
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -17,10 +17,8 @@
                     </thead>
                     <tbody>
                        <?php
-
-                       // $sql = $pdo->query("SELECT * FROM (SELECT sensor_value, timestamps, sensor_val_remarks.remark_id, sensor_val_remarks.remark_color FROM `sensor_logs` JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_logs.remarks_id WHERE sensor_id = '$sensor_id') as tbl_sensor ORDER BY timestamps DESC")
-                          $sql = $pdo->query("SELECT * FROM (SELECT sensor_value, timestamps, sensor_val_remarks.remark_id, sensor_val_remarks.remark_color FROM `sensor_logs` JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_logs.remarks_id WHERE sensor_id = '$sensor_id') as tbl_sensor ORDER BY timestamps DESC");
-                       $posts = $sql->fetchAll();
+                          $sql = $pdo->query("SELECT * FROM (SELECT sensor_value, timestamps, sensor_val_remarks.remark_id, sensor_val_remarks.remark_color FROM `sensor_logs` JOIN sensor_val_remarks ON sensor_val_remarks.remark_id = sensor_logs.remarks_id WHERE sensor_id = '$sensor_id' AND is_active = 0) as tbl_sensor ORDER BY timestamps DESC");
+                          $posts = $sql->fetchAll();
                        foreach($posts as $post){
                           ?>
                           <tr>
@@ -61,7 +59,9 @@
             $dev_info_sql = $pdo->query("SELECT * FROM sensor_profiles JOIN devices ON sensor_profiles.device_api_key = devices.device_api_key WHERE sensor_profiles.sensor_id = '$sensor_id'");
             $dev_info_res = $dev_info_sql->fetch();
         ?>
-        <div class="card-header">Device info</div>
+        <div class="card-header">
+            <span>Device info</span>
+        </div>
         <div class="card-body">
            <table class="table table-striped">
             <tbody>
