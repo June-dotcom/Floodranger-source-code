@@ -1,13 +1,14 @@
 <?php ob_start(); ?>
 <?php session_start(); ?>
 <?php include('dbconn.php'); ?>
-<?php ?>
+<?php error_reporting(-1); ?>
 <?php
 $login_err = '';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $inputted_user_name = $_POST['user_name'];
     $inputted_password = $_POST['user_password'];
-    $login_data_stmt = $pdo->query("SELECT * FROM user_credentials WHERE email = '$inputted_user_name' && password = '$inputted_password'");
+    $login_data_stmt = $pdo->prepare('SELECT * FROM user_credentials WHERE email = ? && password = ?');
+    $login_data_stmt->execute([$inputted_user_name, $inputted_password]);
     $login_ent = $login_data_stmt->fetch();     
     if(isset($login_ent->name)){
         $_SESSION['user_id'] = $login_ent->id;
